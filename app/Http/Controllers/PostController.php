@@ -27,7 +27,7 @@ class PostController extends Controller
     		$query = $query->where('category_id', $request->category);
     	}
 
-    	$posts = $query->paginate(3)->appends(request()->except('page'));
+    	$posts = $query->paginate(8)->appends(request()->except('page'));
         $categories = Category::all();
 
     	return view('post.index', compact('posts', 'categories', 'name', 'category_id'));
@@ -114,6 +114,7 @@ class PostController extends Controller
 
     public function delete($post_id)
     {
+		return $post_id;
     	$post = Post::find($post_id);
     	if (!$post) {
     		return 'ไม่พบข้อมูลในการลบ';

@@ -1,27 +1,32 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+@extends('layouts.master')
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <div class="container">
-      <h5>ทดสอบการ push code ขึ้น git hub</h5>
-      <h1>ทดสอบการ push code ขึ้น git hub</h1>
+@section('title', 'จัดการบทความ')
 
-      <form method="get">
-        <div class="row">
-          <div class="col-md-5">
-            <input type="text" name="name" class="form-control" placeholder="ค้นหาชื่อ" value="{{ $name }}">
+@section('style')
+@endsection
+
+@section('content')
+<section class="blog-table">
+  <div class="row">
+    <div class="col-md-4 col-lg-3">
+      @include('components.profile')
+    </div>
+    <div class="col-md-8 col-lg-9">
+      <div>
+        <h4 class="font-title text-primary">จัดการบทความ</h4>
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{asset('/')}}">หน้าแรก</a></li>
+            <li class="breadcrumb-item active" aria-current="page">บทความ</li>
+          </ol>
+        </nav>
+      </div>
+      <form class="row mb-4" method="get">
+          <div class="col-md-6">
+            <input type="text" name="name" class="form-control form-control-sm" placeholder="ค้นหาชื่อ" value="{{ $name }}">
           </div>
-
-          <div class="col-md-5">
-            <select name="category" class="form-control">
+          <div class="col-md-4">
+            <select name="category" class="form-select form-select-sm">
               <option value="">ทั้งหมด</option>
               @foreach($categories as $category)
               <option value="{{$category->id}}"
@@ -30,75 +35,70 @@
               @endforeach
             </select>
           </div>
-
           <div class="col-md-2">
-            <button class="btn btn-primary" type="submit">ค้นหา</button>
+            <div class="d-grid gap-2"><button class="btn btn-secondary btn-sm" type="submit"><i class="bi bi-search me-1"></i> ค้นหา</button></div>
           </div>
-
-        </div>
       </form>
-
-      <hr>
-      <p> ข้อมูลทั้งหมด {{$posts->total()}} </p>
-      <a href="{{url('/posts/create')}}" class="btn btn-primary">เพิ่มข้อมูล</a>
-      <table class="table">
-        <tr>
-          <td>image</td>
-          <td>post name th</td>
-          <td>post name end</td>
-          <td>category</td>
-          <td>description</td>
-          <td>ดูข้อมูล</td>
-          <td>แก้ไข</td>
-          <td>ลบ</td>
-        </tr>
-        @foreach($posts as $post)
-        <tr>
-          <td style="width: 10%;">
-            <img src="{{url('images/posts', $post->post_image)}}" style="width: 100%;">
-          </td>
-          <td>{{ $post->post_name_th }}</td>
-          <td>{{ $post->post_name_en }}</td>
-          <td>{{ $post->category->category_name_th }}</td>
-          <td>{{ $post->post_description }}</td>
-          <td>
-            <a href='{{url("/posts/$post->id")}}' class="btn btn-success">ดูข้อมูล</a>
-          </td>
-          <td>
-            <a href='{{url("/posts/$post->id/edit")}}' class="btn btn-primary">แก้ไข</a>
-          </td>
-          <td>
-            <form method="post" class="delete-post" action="{{url('/posts', $post->id)}}">
-              @csrf
-              @method('DELETE')
-              <button class="btn btn-danger btn-delete-post" type="button">ลบ</button>
-            </form>
-          </td>
-        </tr>
-        @endforeach
-      </table>
-
-      <div>
-        {{$posts->links()}}
-      </div>
-
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="font-title text-primary mb-0">บทความ</h5>
+            <p> ข้อมูลทั้งหมด {{$posts->total()}} บทความ</p>
+          </div>
+          <div><a href="{{url('/posts/create')}}" class="btn btn-primary"><i class="bi bi-plus me-1"></i> เพิ่มข้อมูล</a></div>
+        </div>
+        <table class="table">
+          <thead class="table-light">
+            <tr>
+              <td width="120">รูปภาพ</td>
+              <td>ชื่อบทความ</td>
+              <td width="180">ประเภทบทความ</td>
+              <td width="140" class="text-center">จัดการข้อมูล</td>
+            </tr>
+          </thead>
+          <tbody>
+          @forelse($posts as $post)
+          <tr>
+            <td width="120">
+              <img src="{{url('images/posts', $post->post_image)}}" class="img-fluid rounded">
+            </td>
+            <td>
+              <a href='{{url("/posts/$post->id")}}' class="text-decoration-none"><p class="mb-1 text-dark fw-bold">{{ $post->post_name_th }}</p></a>
+              <p class="text-muted"><small>{{ $post->post_name_en }}</small></p> 
+            </td>
+            <td width="180"><span class="badge bg-primary">{{ $post->category->category_name_th }}</span></td>
+            <td width="140">
+              <div class="d-flex justify-content-center">
+                <div><a href='{{url("/posts/$post->id/edit")}}' class="btn btn-link px-2"><i class="bi bi-pen text-dark"></i></a></div>
+                <div>
+                  <form method="post" class="delete-post" action="{{url('/posts', $post->id)}}">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-link btn-delete-post px-2" type="button"><i class="bi bi-trash text-danger"></i></button>
+                  </form>
+                </div>
+              </div>
+            </td>
+          </tr>
+          @empty
+          <tr><td colspan="4" class="text-muted text-center">ยังไม่มีข้อมูล</td></tr>
+          @endforelse
+        </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+          {{$posts->links()}}
+        </div>
     </div>
+  </div>
+</section>
+@endsection
 
-    
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.js"
-      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-      crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-      $('.btn-delete-post').click(function(e) {
-        if (confirm('คุณต้องการลบข้อมูลหรือไม่!')) {
-          $('.delete-post').submit();
-        }
-      });
-    </script>
-
-  </body>
-</html>
+@section('script')
+<script type="text/javascript">
+  $('.btn-delete-post').click(function(e) {
+    if (confirm('คุณต้องการลบข้อมูลหรือไม่!')) {
+      $('.delete-post').submit();
+      window.reload();
+    }
+  });
+</script>
+@endsection

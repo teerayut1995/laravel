@@ -1,0 +1,37 @@
+.blog-carousel {
+    margin-bottom: 3rem;
+}
+.carousel-inner {
+    overflow: visible;
+}
+.carousel-caption {
+    right: 15%;
+    bottom: 0;
+    left: 15%;
+    border-radius: var(--border-radius-default);
+    background: rgb(255, 255, 255, .8);
+    /* margin-bottom: -1.6rem; */
+    margin-bottom: 1.25rem;
+    padding: 1.25rem;
+    box-shadow: var(--shadow-default);
+    transition: all .2s ease-in-out;
+    text-align: left;
+}
+.carousel-caption:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-focus);
+    background: rgb(255, 255, 255, 1);
+}
+.carousel-caption:active {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-default);
+}
+.carousel-caption h4 {
+    color: var(--color-primary);
+    font-family: var(--font-title);
+}
+.carousel-caption a {
+    text-decoration: none;
+    color: var(--color-primary-lighten);
+    transition: all .2s ease-in-out;
+}

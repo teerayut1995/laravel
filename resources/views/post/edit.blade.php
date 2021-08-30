@@ -1,69 +1,69 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.master')
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+@section('title', 'แก้ไขบทความ')
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
+@section('style')
+@endsection
 
-    
-    <div class="container">
-      <h1>Update Posts</h1>
-
-      <form method="post" action="{{url('/posts', $post_id)}}" enctype="multipart/form-data">
+@section('content')
+<section class="blog-table">
+  <div class="row">
+    <div class="col-md-4 col-lg-3">
+      @include('components.profile')
+    </div>
+    <div class="col-md-8 col-lg-9">
+      <div>
+        <h4 class="font-title text-primary">แก้ไขบทความ</h4>
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{asset('/')}}">หน้าแรก</a></li>
+            <li class="breadcrumb-item"><a href="{{asset('/posts')}}">บทความ</a></li>
+            <li class="breadcrumb-item active" aria-current="page">เพิ่มบทความ</li>
+          </ol>
+        </nav>
+      </div>
+      <form class="row g-3" method="post" action="{{url('/posts', $post_id)}}" enctype="multipart/form-data">
         @csrf
-        <div class="form-group">
-          <label>หมวดหมู่</label>
-          <select name="category_id" class="form-control">
+        <div class="col-12">
+          <label class="form-label">ชื่อ (ภาษาไทย)</label>
+          <input type="text" name="post_name_th" class="form-control" value="{{ $post->post_name_th }}" required>
+        </div>
+        <div class="col-12">
+          <label class="form-label">ชื่อ (ภาษาอังกฤษ)</label>
+          <input type="text" name="post_name_en" class="form-control"  value="{{ $post->post_name_en }}" required>
+        </div>
+        <div class="col-12">
+          <label class="form-label">หมวดหมู่</label>
+          <select name="category_id" class="form-select">
             <option value="">เลือกหมวดหมู่</option>
             @foreach($categories as $category)
-            <option value="{{$category->id}}"
-              @if($category->id == $post->category_id) selected @endif
-            >{{$category->category_name_th}}</option>
+            <option value="{{$category->id}}" @if($category->id == $post->category_id) selected @endif>{{$category->category_name_th}}</option>
             @endforeach
           </select>
         </div>
-
-        <div class="form-group">
-          <label>ชื่อ (ภาษาไทย)</label>
-          <input type="text" name="post_name_th" class="form-control" value="{{ $post->post_name_th }}" required>
+        <div class="col-12">
+          <label class="form-label">รูปภาพเดิม</label>
+          <img src="{{url('images/posts', $post->post_image)}}" height="250" class="d-block rounded">
+        </div>
+        <div class="col-12">
+          <label class="form-label">รูปภาพ</label>
+          <input type="file" name="post_image" accept="image/*" class="form-control" required>
         </div>
 
-        <div class="form-group">
-          <label>ชื่อ (ภาษาอังกฤษ)</label>
-          <input type="text" name="post_name_en" class="form-control"  value="{{ $post->post_name_en }}" required>
-        </div>
-
-        <div class="form-group">
-          <img src="{{url('images/posts', $post->post_image)}}" style="width: 250px;">
-        </div>
-
-        <div class="form-group">
-          <label>รูปภาพ</label>
-          <input type="file" name="post_image" accept="image/*" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>รายละเอียด</label>
+        <div class="col-12">
+          <label class="form-label">รายละเอียด</label>
           <textarea name="post_description" rows="7" class="form-control">{{ $post->post_description }}</textarea>
         </div>
-
-        <div class="form-group">
-          <button class="btn btn-primary" type="submit">บันทึก</button>
-          <a href="{{url('/posts')}}" class="btn btn-danger">ย้อนกลับ</a>
+        <div class="d-grid gap-2">
+          {{-- <div><a href="{{url('/posts')}}" class="btn btn-light btn-sm"><i class="bi bi-arrow-left"></i> ย้อนกลับ</a></div> --}}
+          <button class="btn btn-primary" type="submit">อัพเดทข้อมูล <i class="bi bi-arrow-repeat ms-1"></i></button>
         </div>
         
       </form>
-
     </div>
+  </div>
+</section>
+@endsection
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-
-  </body>
-</html>
+@section('script')
+@endsection

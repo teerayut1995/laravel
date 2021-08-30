@@ -1,0 +1,41 @@
+.blog-carousel .carousel .carousel-inner .carousel-item img {
+    border-radius: 12px;
+}
+.blog-intro {
+    padding: 2em 2em 0;
+    background: url('./../img/intro_viewer.png');
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    /* box-shadow: 0 .2rem 2.5rem rgba(0, 0, 0, .065) !important; */
+}
+.blog-intro h1, .blog-intro h6 {
+    font-family: var(--font-title);
+} 
+.blog-grid {
+    margin-top: 5rem;
+}
+.blog-grid .blog-grid--recommend {
+    margin-bottom: 2.5rem;
+}
+.blog-grid--title {
+    color: var(--color-primary);
+    font-family: var(--font-title);
+    margin-bottom: 1rem;
+}
+.blog-grid--subtitle {
+    color: var(--color-primary);
+    font-family: var(--font-title);
+}
+.blog-grid--title::first-letter {
+    color: var(--color-secondary);
+}
+.blog-grid--jumbotron {
+    box-shadow: var(--shadow-default);
+    border-radius: var(--border-radius-default);
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+}
+.blog-table {
+    margin-top: 1rem;
+}

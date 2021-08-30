@@ -23,6 +23,10 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories');
         });
+        Schema::table('posts', function (Blueprint $table) {
+            $table->string('post_short')->after('post_name_en');
+            $table->enum('post_views', ['intro', 'default'])->default('default')->after('post_image');
+        });
     }
 
     /**

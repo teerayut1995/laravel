@@ -1,0 +1,47 @@
+.blog-header .blog-header--logo img {
+    height: 45px;
+}
+.blog-header .blog-header--link {
+    margin-right: 1rem;
+}
+.blog-header .blog-header--link:last-child {
+    margin-right: 0;
+}
+.blog-header .blog-header--link.link-facebook {
+    color: #1877f2;
+}
+.blog-header .blog-header--link.link-twitter {
+    color: #08a0e9;
+}
+.blog-header .blog-header--link.link-ig {
+    color: #bc2a8d;
+}
+.blog-nav .blog-nav--menu {
+    border-radius: 12px;
+    padding: 8px 12px;
+}
+.blog-nav .blog-nav--menu a {
+    text-decoration: none;
+    transition: all .2s ease-out;
+}
+.blog-nav .blog-nav--menu a:hover {
+    color: #000;
+    border-radius: var(--border-radius-sm);
+    background-color: #e2e2e2;
+}
+.blog-nav .blog-nav--menu a.active {
+    color: #000;
+    border-radius: 8px;
+    background-color: #e2e2e2;
+}
+footer {
+    border-radius: 12px;
+    padding: 16px 12px;
+}
+.nav-pills .nav-link {
+    color: #6c757d;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #000;
+    background-color: #e2e2e2;
+}
